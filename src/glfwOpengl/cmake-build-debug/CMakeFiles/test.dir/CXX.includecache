@@ -62,13 +62,13 @@ GL/gl.h
 GL/glext.h
 -
 
-F:/project/github/unfinished/computerGraphics/src/glfwOpengl/main.cpp
+F:/project/github/unfinished/computerGraphics/src/glfwOpengl/test.cpp
 glad/glad.h
 -
 GLFW/glfw3.h
 -
-math.h
-F:/project/github/unfinished/computerGraphics/src/glfwOpengl/math.h
 iostream
+-
+cmath
 -
 

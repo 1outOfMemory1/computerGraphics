@@ -74,17 +74,6 @@ CMAKE_BINARY_DIR = F:\project\github\unfinished\computerGraphics\src\glfwOpengl\
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"D:\EnglishSoftware\CLion 2021.1.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -95,6 +84,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	"D:\EnglishSoftware\CLion 2021.1.1\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -141,6 +141,19 @@ glfwOpengl/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\glfwOpengl.dir\build.make CMakeFiles/glfwOpengl.dir/build
 .PHONY : glfwOpengl/fast
 
+#=============================================================================
+# Target rules for targets named test
+
+# Build rule for target.
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/build
+.PHONY : test/fast
+
 D_/EnglishSoftware/c++Env/opengl/glad/src/glad.obj: D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.obj
 
 .PHONY : D_/EnglishSoftware/c++Env/opengl/glad/src/glad.obj
@@ -148,6 +161,7 @@ D_/EnglishSoftware/c++Env/opengl/glad/src/glad.obj: D_/EnglishSoftware/c++Env/op
 # target to build an object file
 D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\glfwOpengl.dir\build.make CMakeFiles/glfwOpengl.dir/D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.obj
 .PHONY : D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.obj
 
 D_/EnglishSoftware/c++Env/opengl/glad/src/glad.i: D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.i
@@ -157,6 +171,7 @@ D_/EnglishSoftware/c++Env/opengl/glad/src/glad.i: D_/EnglishSoftware/c++Env/open
 # target to preprocess a source file
 D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\glfwOpengl.dir\build.make CMakeFiles/glfwOpengl.dir/D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.i
 .PHONY : D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.i
 
 D_/EnglishSoftware/c++Env/opengl/glad/src/glad.s: D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.s
@@ -166,6 +181,7 @@ D_/EnglishSoftware/c++Env/opengl/glad/src/glad.s: D_/EnglishSoftware/c++Env/open
 # target to generate assembly for a file
 D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\glfwOpengl.dir\build.make CMakeFiles/glfwOpengl.dir/D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.s
 .PHONY : D_/EnglishSoftware/c++Env/opengl/glad/src/glad.c.s
 
 main.obj: main.cpp.obj
@@ -195,6 +211,33 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\glfwOpengl.dir\build.make CMakeFiles/glfwOpengl.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+test.obj: test.cpp.obj
+
+.PHONY : test.obj
+
+# target to build an object file
+test.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test.cpp.obj
+.PHONY : test.cpp.obj
+
+test.i: test.cpp.i
+
+.PHONY : test.i
+
+# target to preprocess a source file
+test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test.cpp.i
+.PHONY : test.cpp.i
+
+test.s: test.cpp.s
+
+.PHONY : test.s
+
+# target to generate assembly for a file
+test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/test.cpp.s
+.PHONY : test.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -204,12 +247,16 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... glfwOpengl
+	@echo ... test
 	@echo ... D_/EnglishSoftware/c++Env/opengl/glad/src/glad.obj
 	@echo ... D_/EnglishSoftware/c++Env/opengl/glad/src/glad.i
 	@echo ... D_/EnglishSoftware/c++Env/opengl/glad/src/glad.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... test.obj
+	@echo ... test.i
+	@echo ... test.s
 .PHONY : help
 
 

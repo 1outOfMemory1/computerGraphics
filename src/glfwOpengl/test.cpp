@@ -1,9 +1,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "math.h"
-
-#include <iostream>
 #define PI 3.1415926535
+#include <iostream>
+#include <cmath>
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
@@ -11,17 +11,19 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 800;
 
-const char *vertexShaderSource = "#version 330 core\n"
-                                 "layout (location = 0) in vec3 aPos;\n"
-                                 "void main()\n"
-                                 "{\n"
-                                 "   gl_Position = vec4(aPos.x, aPos.y , aPos.z, 1.0);\n"
-                                 "}\0";
+const char *vertexShaderSource ="#version 330 core\n"
+                                "layout (location = 0) in vec3 aPos;\n"
+                                "void main()\n"
+                                "{\n"
+                                "   gl_Position = vec4(aPos, 1.0);\n"
+                                "}\0";
+
 const char *fragmentShaderSource = "#version 330 core\n"
                                    "out vec4 FragColor;\n"
+                                   "uniform vec4 ourColor;\n"
                                    "void main()\n"
                                    "{\n"
-                                   "   FragColor = vec4(0.8f, 1.0f, 0.4f, 1.0f);\n"
+                                   "   FragColor = ourColor;\n"
                                    "}\n\0";
 
 int main()
@@ -56,7 +58,6 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-
 
     // build and compile our shader program
     // ------------------------------------
@@ -97,7 +98,6 @@ int main()
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-
 
     int i = 0;
     int total = 30;
@@ -146,30 +146,42 @@ int main()
     glBindVertexArray(0);
 
 
-    // uncomment this call to draw in wireframe polygons.
+
+
+    // bind the VAO (it was already bound, but just to demonstrate): seeing as we only have a single VAO we can
+    // just bind it beforehand before rendering the respective triangle; this is another approach.
+    glBindVertexArray(VAO);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // render loop
     // -----------
-
-
     while (!glfwWindowShouldClose(window))
     {
         // input
         // -----
         processInput(window);
 
-//        drawMyDiamonds()
-
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw our first triangle
+        // be sure to activate the shader before any calls to glUniform
+        glUseProgram(shaderProgram);
+
+        // update shader uniform
+        float timeValue = glfwGetTime();
+        float greenValue = sin(timeValue) / 2.0f + 0.5f;
+        float redValue = cos(timeValue) / 2.0f + 0.5f;
+        float blueValue =( sin(timeValue) + cos(timeValue) )/ 2.0f + 0.5f;
+
+        int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+        glUniform4f(vertexColorLocation,redValue, greenValue, blueValue, 1.0f);
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
         glDrawElements(GL_LINES,total*2*total, GL_UNSIGNED_INT, 0);
+
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -181,7 +193,6 @@ int main()
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
     glDeleteProgram(shaderProgram);
 
     // glfw: terminate, clearing all previously allocated GLFW resources.

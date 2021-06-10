@@ -15,7 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    // 配置 菜单栏
     this->d = nullptr;
+    this->l = nullptr;
     parentWindow = this;
     ui->setupUi(this);
     menubar = menuBar();
@@ -27,11 +29,14 @@ MainWindow::MainWindow(QWidget *parent)
     QMenu *help = menubar->addMenu("帮助");
     QAction *about  = help->addAction("关于");
 
+
+
     connect(exit, SIGNAL(triggered()), this, SLOT(close()));
+    connect(about, SIGNAL(triggered()), this, SLOT(showAbout()));
 
     connect(diamond, SIGNAL(triggered())  ,this, SLOT(drawDiamond()));
+    connect(line, SIGNAL(triggered())  ,this, SLOT(drawLines()));
 
-    connect(about, SIGNAL(triggered()), this, SLOT(showAbout()));
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(resizeOpenGLWindow()));
@@ -52,6 +57,9 @@ void MainWindow::resizeOpenGLWindow() {
 //    std::cout<<windowsWidth<<std::endl;
     if(d != nullptr)
         d->resize(windowsWidth,windowsHeight-menubarHeight);
+    if(this->l != nullptr){
+        l->resize(windowsWidth,windowsHeight-menubarHeight);
+    }
 }
 
 void MainWindow::drawDiamond() {
@@ -80,10 +88,6 @@ void MainWindow::drawDiamond() {
     QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
 
 
-
-
-
-
     // Process when OK button is clicked
     if (dialog.exec() == QDialog::Accepted) {
 
@@ -105,10 +109,21 @@ void MainWindow::drawDiamond() {
 
 }
 
+
 void MainWindow::showAbout(){
     QMessageBox *qm = new  QMessageBox();
     qm->setWindowTitle("关于");
     qm->setText("本程序基于qt与glfw开发,开发者尹浩男") ;
     qm->show();
+}
+
+void MainWindow::drawLines() {
+    l = new Line(nullptr);
+    l->setParent(this);
+    menubarHeight =  menubar->height();
+    windowsHeight = parentWindow->height();
+    windowsWidth = parentWindow->width();
+    l->move(0,menubarHeight);
+    l->show();
 }
 

@@ -17,7 +17,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 link_directories(helloworld D:/EnglishSoftware/c++Env/opengl/glfw/lib-vc2019)
-add_executable(helloworld main.cpp mainwindow.h mainwindow.cpp Diamond.h Diamond.cpp)
+add_executable(helloworld main.cpp mainwindow.h mainwindow.cpp Diamond.h Diamond.cpp Line.cpp Line.h)
 target_link_libraries(helloworld
         glfw3.dll
 

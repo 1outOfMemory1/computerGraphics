@@ -9,11 +9,12 @@
 #include "QPushButton"
 #include "QLabel"
 #include "Diamond.h"
+#include "Line.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+        : QMainWindow(parent)
+        , ui(new Ui::MainWindow)
 {
     // 配置 菜单栏
     this->d = nullptr;
@@ -57,7 +58,7 @@ void MainWindow::resizeOpenGLWindow() {
 //    std::cout<<windowsWidth<<std::endl;
     if(d != nullptr)
         d->resize(windowsWidth,windowsHeight-menubarHeight);
-    if(this->l != nullptr){
+    if(l != nullptr){
         l->resize(windowsWidth,windowsHeight-menubarHeight);
     }
 }
@@ -118,7 +119,7 @@ void MainWindow::showAbout(){
 }
 
 void MainWindow::drawLines() {
-    l = new Line(nullptr);
+    l = new Line(parentWindow);
     l->setParent(this);
     menubarHeight =  menubar->height();
     windowsHeight = parentWindow->height();

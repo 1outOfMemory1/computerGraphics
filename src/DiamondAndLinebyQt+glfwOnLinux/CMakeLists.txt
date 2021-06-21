@@ -25,11 +25,13 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 # find_package(Qt5Widgets REQUIRED)
 
 # 将当前目录的所有源文件添加进变量
-aux_source_directory(. DIRS_SRCS)
 
+aux_source_directory(. DIRS_SRCS)
 # 通常这样设置就可以，如果你的项目包含qrc文件，那么需要将它们单独添加进来
 # 例如add_executable(test ${DIRS_SRCS} resources.qrc)
-add_executable(test ${DIRS_SRCS} )
+add_executable(test ${DIRS_SRCS}  )
 set(CMAKE_VERBOSE_MAKEFILE On)
 # 把对应Qt模块的库链接进程序
-target_link_libraries(test Qt5::Widgets glfw3  pthread dl X11)
+
+
+target_link_libraries(test Qt5::Widgets  glfw3  pthread dl X11  )

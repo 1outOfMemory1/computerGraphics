@@ -118,4 +118,3 @@ void Diamond::paintGL() {
 void Diamond::resizeGL(int width, int height) {
     glViewport(0,0,width,height);
 }
-

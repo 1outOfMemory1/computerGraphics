@@ -16,11 +16,11 @@ find_package(Qt6 COMPONENTS OpenGLWidgets)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-link_directories(helloworld D:/EnglishSoftware/c++Env/opengl/glfw/lib-vc2019)
+
+include_directories(D:/EnglishSoftware/c++Env/opengl/freeglut-msvc/include) # 添加include头文件目录
+link_directories(D:/EnglishSoftware/c++Env/opengl/freeglut-msvc/lib/x64) # 添加lib库目录
 add_executable(helloworld main.cpp mainwindow.h mainwindow.cpp Diamond.h Diamond.cpp Line.cpp Line.h)
 target_link_libraries(helloworld
-        glfw3.dll
-
         Qt::Core
         Qt::Gui
         Qt::OpenGL

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "Diamond_dynamic.h"
 #include "Diamond.h"
+#include "Line.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,9 +27,13 @@ private:
     int windowsWidth;
 //    Diamond_dynamic *dd;
     Diamond *d;
+    Line *l;
 private slots:
     void resizeOpenGLWindow();
     void drawDiamond();
     void showAbout();
+
+    void drawLines();
+
 };
 #endif // MAINWINDOW_H

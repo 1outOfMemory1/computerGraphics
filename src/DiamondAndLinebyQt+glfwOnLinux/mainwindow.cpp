@@ -9,15 +9,17 @@
 #include "QPushButton"
 #include "QLabel"
 #include "Diamond.h"
+#include "Line.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+        : QMainWindow(parent)
+        , ui(new Ui::MainWindow)
 {
-
+    // 配置 菜单栏
+    this->d = nullptr;
+    this->l = nullptr;
     parentWindow = this;
-
     ui->setupUi(this);
     menubar = menuBar();
     QMenu *file = menubar->addMenu("文件");
@@ -30,21 +32,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
+    connect(exit, SIGNAL(triggered()), this, SLOT(close()));
+    connect(about, SIGNAL(triggered()), this, SLOT(showAbout()));
+
+    connect(diamond, SIGNAL(triggered())  ,this, SLOT(drawDiamond()));
+    connect(line, SIGNAL(triggered())  ,this, SLOT(drawLines()));
+
+
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(resizeOpenGLWindow()));
     timer->start(100);
-
-    connect(exit, SIGNAL(triggered()), this, SLOT(close()));
-
-    connect(diamond, SIGNAL(triggered())  ,this, SLOT(drawDiamond()));
-
-    connect(about, SIGNAL(triggered()), this, SLOT(showAbout()));
-
-
-
-
-
-
 }
 
 MainWindow::~MainWindow()
@@ -57,8 +54,13 @@ MainWindow::~MainWindow()
 void MainWindow::resizeOpenGLWindow() {
     windowsHeight = parentWindow->height();
     windowsWidth = parentWindow->width();
+//    std::cout<<windowsHeight<<std::endl;
+//    std::cout<<windowsWidth<<std::endl;
     if(d != nullptr)
         d->resize(windowsWidth,windowsHeight-menubarHeight);
+    if(l != nullptr){
+        l->resize(windowsWidth,windowsHeight-menubarHeight);
+    }
 }
 
 void MainWindow::drawDiamond() {
@@ -87,10 +89,6 @@ void MainWindow::drawDiamond() {
     QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
 
 
-
-
-
-
     // Process when OK button is clicked
     if (dialog.exec() == QDialog::Accepted) {
 
@@ -112,10 +110,21 @@ void MainWindow::drawDiamond() {
 
 }
 
+
 void MainWindow::showAbout(){
     QMessageBox *qm = new  QMessageBox();
     qm->setWindowTitle("关于");
-    qm->setText("本程序基于qt与glfw开发") ;
+    qm->setText("本程序基于qt与glfw开发,开发者尹浩男") ;
     qm->show();
+}
+
+void MainWindow::drawLines() {
+    l = new Line(parentWindow);
+    l->setParent(this);
+    menubarHeight =  menubar->height();
+    windowsHeight = parentWindow->height();
+    windowsWidth = parentWindow->width();
+    l->move(0,menubarHeight);
+    l->show();
 }
 

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "Diamond_dynamic.h"
 #include "Diamond.h"
 #include "Line.h"
 
@@ -30,7 +31,9 @@ private:
 private slots:
     void resizeOpenGLWindow();
     void drawDiamond();
-    void drawLines();
     void showAbout();
+
+    void drawLines();
+
 };
 #endif // MAINWINDOW_H

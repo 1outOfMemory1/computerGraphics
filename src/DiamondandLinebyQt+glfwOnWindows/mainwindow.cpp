@@ -10,6 +10,7 @@
 #include "QLabel"
 #include "Diamond.h"
 #include "Line.h"
+#include "PolygonMine.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -19,14 +20,20 @@ MainWindow::MainWindow(QWidget *parent)
     // 配置 菜单栏
     this->d = nullptr;
     this->l = nullptr;
+    this->p = nullptr;
+    this->poin = nullptr;
+    this->cc = nullptr;
     parentWindow = this;
     ui->setupUi(this);
     menubar = menuBar();
     QMenu *file = menubar->addMenu("文件");
     QAction *exit  = file->addAction("退出");
     QMenu *draw = menubar->addMenu("绘图");
+    QAction *point  = draw->addAction("绘制点");
     QAction *diamond  = draw->addAction("绘制金刚石");
     QAction *line  = draw->addAction("绘制任意斜率的线段");
+    QAction *polygon  = draw->addAction("多边形填充");
+    QAction *colorCube  = draw->addAction("渐变立方体");
     QMenu *help = menubar->addMenu("帮助");
     QAction *about  = help->addAction("关于");
 
@@ -37,6 +44,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(diamond, SIGNAL(triggered())  ,this, SLOT(drawDiamond()));
     connect(line, SIGNAL(triggered())  ,this, SLOT(drawLines()));
+    connect(polygon, SIGNAL(triggered())  ,this, SLOT(drawPolygon()));
+    connect(point, SIGNAL(triggered())  ,this, SLOT(drawPoint()));
+    connect(colorCube, SIGNAL(triggered())  ,this, SLOT(drawColorCube()));
 
 
     QTimer *timer = new QTimer(this);
@@ -60,6 +70,16 @@ void MainWindow::resizeOpenGLWindow() {
         d->resize(windowsWidth,windowsHeight-menubarHeight);
     if(l != nullptr){
         l->resize(windowsWidth,windowsHeight-menubarHeight);
+    }
+    if(p != nullptr){
+        p->resize(windowsWidth,windowsHeight-menubarHeight);
+    }
+    if(poin != nullptr){
+        poin->resize(windowsWidth,windowsHeight-menubarHeight);
+    }
+
+    if(cc != nullptr){
+        cc->resize(windowsWidth,windowsHeight-menubarHeight);
     }
 }
 
@@ -110,14 +130,6 @@ void MainWindow::drawDiamond() {
 
 }
 
-
-void MainWindow::showAbout(){
-    QMessageBox *qm = new  QMessageBox();
-    qm->setWindowTitle("关于");
-    qm->setText("本程序基于qt与glfw开发,开发者尹浩男") ;
-    qm->show();
-}
-
 void MainWindow::drawLines() {
     l = new Line(parentWindow);
     l->setParent(this);
@@ -127,4 +139,47 @@ void MainWindow::drawLines() {
     l->move(0,menubarHeight);
     l->show();
 }
+
+
+void MainWindow::drawPolygon() {
+    p = new PolygonMine(parentWindow);
+    p->setParent(this);
+    menubarHeight =  menubar->height();
+    windowsHeight = parentWindow->height();
+    windowsWidth = parentWindow->width();
+    p->move(0,menubarHeight);
+    p->show();
+}
+
+void MainWindow::drawPoint(){
+    poin = new PointMine(parentWindow);
+    poin->setParent(this);
+    menubarHeight =  menubar->height();
+    windowsHeight = parentWindow->height();
+    windowsWidth = parentWindow->width();
+    poin->move(0,menubarHeight);
+    poin->show();
+}
+
+
+void MainWindow::drawColorCube() {
+    cc = new ColorCube(parentWindow);
+    cc->setParent(this);
+    menubarHeight =  menubar->height();
+    windowsHeight = parentWindow->height();
+    windowsWidth = parentWindow->width();
+    cc->move(0,menubarHeight);
+    cc->show();
+}
+
+
+void MainWindow::showAbout(){
+    QMessageBox *qm = new  QMessageBox();
+    qm->setWindowTitle("关于");
+    qm->setText("本程序基于qt与glfw开发,开发者尹浩男") ;
+    qm->show();
+}
+
+
+
 

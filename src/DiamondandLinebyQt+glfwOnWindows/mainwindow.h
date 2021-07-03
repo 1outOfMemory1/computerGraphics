@@ -4,7 +4,10 @@
 #include <QMainWindow>
 #include "Diamond_dynamic.h"
 #include "Diamond.h"
+#include "PolygonMine.h"
 #include "Line.h"
+#include "PointMine.h"
+#include "ColorCube.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,12 +31,18 @@ private:
 //    Diamond_dynamic *dd;
     Diamond *d;
     Line *l;
+    PolygonMine *p;
+    PointMine *poin;
+    ColorCube * cc;
 private slots:
     void resizeOpenGLWindow();
     void drawDiamond();
     void showAbout();
 
-    void drawLines();
 
+    void drawLines();
+    void drawPolygon();
+    void drawPoint();
+    void drawColorCube();
 };
 #endif // MAINWINDOW_H

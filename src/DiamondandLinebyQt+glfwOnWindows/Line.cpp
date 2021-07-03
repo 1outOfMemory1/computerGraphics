@@ -22,7 +22,8 @@ void Line::initializeGL() {
 
     initializeOpenGLFunctions();
 
-    glClearColor(32/255.0,158/255.0,40/255.0, 1);
+//    glClearColor(32/255.0,158/255.0,40/255.0, 1);
+    glClearColor(1,1,1, 1);
 
     initShaders();
     initTextures();

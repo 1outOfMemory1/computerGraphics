@@ -1,18 +1,26 @@
 //
-// Created by yhn on 6/5/21.
+// Created by yhn on 7/2/2021.
 //
 
-#ifndef TEST_DIAMOND_H
-#define TEST_DIAMOND_H
+#ifndef QT_CMAKE_HELLOWORLD_COLORCUBE_H
+#define QT_CMAKE_HELLOWORLD_COLORCUBE_H
+
+
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLShaderProgram>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+#include <iostream>
+#include <GLFW/glfw3.h>
 
-class Diamond  :public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core{
-Q_OBJECT
+
+class ColorCube : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
 public:
-    explicit Diamond(QWidget *parent,float scale,int pointNum);
-    ~Diamond();
+    explicit  ColorCube(QWidget *parent);
+
+    ~ColorCube();
 
 protected:
     //设置OpenGL资源和状态。在第一次调用resizeGL或paintGL之前被调用一次
@@ -26,9 +34,13 @@ private:
     QOpenGLShaderProgram _shaderProgram;
     GLuint _VAO;
     GLuint _VBO;
-    int total;
-    float scale;
+    float width;
+    float height;
+
+    void initShaders();
+
+    void initTextures();
 };
 
 
-#endif //TEST_DIAMOND_H
+#endif //QT_CMAKE_HELLOWORLD_COLORCUBE_H

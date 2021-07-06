@@ -28,6 +28,7 @@ add_executable(ballLight ball.cpp utilClass/stb_image.h utilClass/stb_image.cpp 
 add_executable(cubeLight cubeLight.cpp utilClass/stb_image.h utilClass/stb_image.cpp G:/environment/c++Env/opengl/glad/src/glad.c)
 add_executable(skybox cubemaps_skybox.cpp utilClass/stb_image.h utilClass/stb_image.cpp G:/environment/c++Env/opengl/glad/src/glad.c)
 add_executable(besaier besaier.cpp)
+add_executable(lineCut lineCut.cpp)
 
 
 target_link_libraries(static_diamond glfw3.dll  )
@@ -38,3 +39,4 @@ target_link_libraries(ballLight glfw3.dll glew32.lib opengl32.dll )
 target_link_libraries(cubeLight glfw3.dll glew32.lib opengl32.dll )
 target_link_libraries(skybox glfw3.dll glew32.lib opengl32.dll )
 target_link_libraries(besaier  ${OpenCV_LIBS})
+target_link_libraries(lineCut glfw3.dll glew32.lib opengl32.dll)
